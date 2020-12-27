@@ -98,5 +98,11 @@ public class ProjectDependencies {
         String[][] dependencies = {{"a","d"}, {"f","b"}, {"b","d"}, {"f", "a"}, {"d","c"}};
 
         System.out.println(getBuildOrder(nodes, dependencies));        
+
+        System.out.println("Let's introduce a cycle now");
+
+        String[][] newDependencies = {{"a","d"}, {"f","b"}, {"b","d"}, {"f", "a"}, {"d","c"}, {"e","f"}, {"b","e"}};
+
+        System.out.println(getBuildOrder(nodes, newDependencies));     
     }
 }
