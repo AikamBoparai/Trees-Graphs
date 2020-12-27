@@ -19,6 +19,15 @@ public class ProjectDependencies {
             }
             return null;
         }
+
+        void CompleteProject(Node project){
+            project.complete();
+            for (Node node : projects) {
+                if(!node.isCompleted() && node.hasDependent(project.getName())){
+                    node.decrementDependencies();
+                }
+            }
+        }
         
     }
     
@@ -39,6 +48,10 @@ public class ProjectDependencies {
             dependentProjects.add(n.getName());
             dependencies++;
         }
+        boolean hasDependent(String name){
+            return dependentProjects.contains(name);
+        }
+
     }
 
     public static String getBuildOrder(ArrayList<Node> nodes, String[][] dependencies){
@@ -53,11 +66,16 @@ public class ProjectDependencies {
             boolean cycle = true;
             for (Node p : graph.projects) {
                 if(p.dependencies == 0 && !p.isCompleted()){
+                    cycle = false;
                     result.append(p.getName());
-                    p.complete();
+                    graph.CompleteProject(p);
                 }
             }
+
+            if(cycle)return "No valid path found";
         }
+
+        return result.toString();
     }
 
     public static void main(String[] args) {
