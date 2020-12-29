@@ -1,18 +1,18 @@
 import java.util.ArrayList;
-class CommonAncestor{
+class CommonAncestorParentLinks{
     //Nodes for a binary tree
     //Node with parent links
-    static class Node{
+    static class NodeP{
         int name;
-        Node parent = null;
-        Node left = null;
-        Node right = null;
+        NodeP parent = null;
+        NodeP left = null;
+        NodeP right = null;
 
-        Node(int name) {
+        NodeP(int name) {
             this.name = name;
         }
 
-        void addChild(Node n) {
+        void addChild(NodeP n) {
             if(this.left == null)
             {
                 this.left = n;
@@ -31,7 +31,7 @@ class CommonAncestor{
         int getName(){return name;}
 
         int getDepth(){
-            Node n = this;
+            NodeP n = this;
             int depth = 0;
             while(n != null){
                 depth++;
@@ -41,7 +41,7 @@ class CommonAncestor{
         }
     }
 
-    static Node commonAncestor(Node n1, Node n2){
+    static NodeP commonAncestorParentLinks(NodeP n1, NodeP n2){
         //every node in a binary tree must have an ancestor
         if(n1 == n2)return n1;
 
@@ -49,7 +49,7 @@ class CommonAncestor{
         int depth2 = n2.getDepth();
         int difference = Math.abs(depth1 - depth2);
 
-        Node deeper = depth1 >= depth2 ? n1 : n2;
+        NodeP deeper = depth1 >= depth2 ? n1 : n2;
 
         for(int i = 0;i < difference; i++){
             deeper = deeper.parent;
@@ -68,9 +68,9 @@ class CommonAncestor{
     }
 
     public static void main(String[] args) {
-        ArrayList<Node> nodes = new ArrayList<Node>();
+        ArrayList<NodeP> nodes = new ArrayList<NodeP>();
         for(int i = 0; i < 7; i++){
-            nodes.add(new Node(i));
+            nodes.add(new NodeP(i));
         }
 
         nodes.get(0).addChild(nodes.get(1));
@@ -83,7 +83,7 @@ class CommonAncestor{
         nodes.get(2).addChild(nodes.get(6));
         
 
-        Node ancestor = commonAncestor(nodes.get(3), nodes.get(4));
+        NodeP ancestor = commonAncestorParentLinks(nodes.get(3), nodes.get(4));
         System.out.println(ancestor.name);
     }
 }
