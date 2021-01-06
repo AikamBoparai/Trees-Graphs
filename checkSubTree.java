@@ -20,6 +20,37 @@ public class checkSubTree {
         return t1S.indexOf(t2S.toString()) != -1;
     }
 
+    static boolean checkSubTreeNode(Node t1, Node t2){
+        //As soon as we find a node that is the root of t2 run checkTree
+        if(t1 == null)return false;
+        if(t1.data == t2.data && checkTree(t1,t2)){
+            return true;
+        }
+
+        // result = checkSubTreeNode(t1.left, t2);
+        // if(result == true)return true;
+        // result = checkSubTreeNode(t1.right, t2);
+        // if(result == true)return true;
+
+        return checkSubTreeNode(t1.left, t2) || checkSubTreeNode(t1.right, t2);
+    }
+
+    static boolean checkTree(Node t1, Node t2){
+        if(t1 == null && t2 == null){
+            return true;
+        }
+        else if(t1 == null || t2 == null){
+            return false;
+        }
+        else if(t1.data != t2.data){
+            return false;
+        }
+        else{
+            return checkTree(t1.left,t2.left) && checkTree(t1.right, t2.right);
+        }
+        
+    }
+
     static void preOrder(Node head, StringBuilder result){
         if(head == null){
             result.append("X");
@@ -62,5 +93,12 @@ public class checkSubTree {
         n10.left.left = new Node(8);
 
         System.out.println(checkSubTreeStrings(n1, n10));
+        System.out.println(checkSubTreeNode(n1,n10));
+
+        Node n11 = new Node(7);
+        n11.right = new Node(9);
+
+        System.out.println(checkSubTreeStrings(n1, n11));
+        System.out.println(checkSubTreeNode(n1, n11));
     }
 }
