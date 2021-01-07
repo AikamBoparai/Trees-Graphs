@@ -15,3 +15,15 @@ Confirm that a binary tree is  a BST
 
 ### 5. Successor
 Find the next node in an In-order traversal of the tree
+
+### 6. First Common Ancestor
+Find lowest common ancestor. Using both parent links on the nodes and without parent links
+
+### 7. BST Sequence
+Given a BST, print all possible arrays that could have lead to this BST
+
+### 8. Check Subtree
+Check if a  T2 exists within another tree T1
+
+### 9. Paths with Sum
+Design an algorithm to count the number of paths that sum to a given value. Path must go downwards
