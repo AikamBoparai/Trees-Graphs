@@ -50,62 +50,35 @@ public class Heap {
         Integer[] heap = heapify(array);
         printArray(heap);
         int last  = array.length - 1;
-        for(int i = 0; i < 1; i++){
+        for(int i = 0; i < heap.length; i++){
             swap(heap,0,last);
-            printArray(heap);
-            maintainHeapDownwards(heap, 0);
+            heapDown(heap, last,0);
             last--;
         }
 
         return heap;
     }
 
-    static void maintainHeapDownwards(Integer[] heap, int i){
-        int left = ((i+1)*2)-1;
-        int right = left + 1;
-        System.out.println(i + " " + left + " " + right);
+    static void heapDown(Integer[] arr, int length, int index){
+        int largest = index;
+        int left = 2 * index + 1;
+        int right = 2 * index + 2;
 
-        if(left >= heap.length){
-            System.out.println("hit6");
-            System.out.println(left);
-            return;
-        }
-        if(right >= heap.length){
-            System.out.println("hit7");
-            return;
-        }
-        
-        if(heap[left] == null && heap[right] == null){
-            System.out.println("double null");
-            return;
-        }
-        else if(heap[left] != null && heap[right] != null && heap[left] > heap[i] && heap[left] >= heap[right]){
-            System.out.println("hit");
-            swap(heap,left,i);
-            maintainHeapDownwards(heap, left);
-        }
-        else if(heap[left] != null && heap[right] != null && heap[right] > heap[i] && heap[right] > heap[left]){
-            System.out.println("hit2");
-            swap(heap,right,i);
-            printArray(heap);
-            maintainHeapDownwards(heap, right);
-        }
-        else if(heap[left] != null && heap[left]  > heap[i]){
-            System.out.println("hit3");
-            swap(heap,left,i);
-            maintainHeapDownwards(heap, left);
+        if(left < length && arr[left] > arr[largest]){
+            largest = left;
         }
 
-        else if(heap[right] != null && heap[right]  > heap[i]){
-            System.out.println("hit4");
-            swap(heap,right,i);
-            maintainHeapDownwards(heap, right);
+        if(right < length && arr[right] > arr[largest]){
+            largest = right;
         }
-        else{
-            System.out.println("hit5");
-            return;
+
+        if(largest != index){
+            swap(arr,largest,index);
+            heapDown(arr,length,largest);
         }
     }
+
+    
     public static void main(String[] args) {
         Integer[] array = {10,20,15,30,40,Integer.MAX_VALUE, Integer.MIN_VALUE};
         printArray(heapSort(array));
